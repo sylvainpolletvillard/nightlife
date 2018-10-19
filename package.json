@@ -2,7 +2,7 @@
   "name": "nightlife",
   "version": "1.0.0",
   "description": "detect night time based on user location",
-  "homepage": "http://sylvainpolletvillard.github.io/nightlife/",
+  "homepage": "https://sylvainpolletvillard.github.io/nightlife/",
   "repository": {
     "type": "git",
     "url": "https://github.com/sylvainpolletvillard/nightlife.git"
