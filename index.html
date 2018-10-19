@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Nightlife test</title>
+    <link href="dist/nightlife.css" rel="stylesheet" />
+    <link href="lib/prism.css" rel="stylesheet" />
+
+    <script src="dist/nightlife.js"></script>
+    <script defer>
+        function refresh() {
+            document.querySelector("#output").textContent = nightlife.isNight
+                ? `It's night. Sun rises at ${nightlife.sunrise.toLocaleTimeString()}`
+                : `It's day. Sun sets at ${nightlife.sunset.toLocaleTimeString()}`
+        }
+
+        nightlife.on("init", refresh);
+        nightlife.on("sunrise", refresh)
+        nightlife.on("sunset", refresh)
+    </script>
+    <script defer src="lib/prism.js"></script>
+
+    <style>
+        body {
+            font: 100%/1.5 system-ui;
+            margin: 2rem;
+            font-size: 200%;
+            text-align: center;
+        }
+
+        main {
+            max-width: 960px;
+            margin: auto;
+            text-align: left;
+        }
+
+        pre {
+            font-size: 1.25rem;
+        }
+
+        h1 {
+            border-bottom: 16px solid black;
+        }
+
+        aside {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+        }
+
+        @media (min-width:1000px) {
+            aside {
+                position: fixed;
+            }
+        }
+
+        aside svg {
+            width: 64px;
+            height: 64px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>nightlife</h1>
+        <h2 id="output">Day or night ?</h2>
+
+        <p>nightlife detects users location and calculates sunrise and sunset time at their location, to apply
+            a different style at night time.</p>
+
+        <p>If user location can not be retrieved, it is assumed that the night goes from 6pm to 6am, local time.</p>
+
+        <h2>Install</h2>
+        <pre><code class="language-html">&lt;!-- inside your &lt;head&gt; --&gt;
+&lt;script defer src="unpkg.com/nightlife/dist/nightlife.js"&gt;&lt;/script&gt;</code></pre>
+
+        </p>
+
+        <h2>Night mode CSS</h2>
+
+        <p>If you want a default basic night theme, you can use this one:
+            <br>it inverts the lightness of all colors except for images and videos.</p>
+        <pre><code class="language-html">&lt;link rel="stylesheet" href="unpkg.com/nightlife/dist/nightlife.css" /&gt;</code></pre>
+
+        <p>If you want your own styles at night time, use this media query:</p>
+        <pre><code class="language-css">@media (prefers-color-scheme: dark) {
+    /* these styles will apply at night time
+       or if user explicitely asks for a dark color scheme */
+    body {
+        background-color: black;
+    }
+}</code></pre>
+
+        <p>This media query is currently not supported on most browsers, so you will also have to use this :
+            <a target="_blank" href="https://www.npmjs.com/package/css-prefers-color-scheme">css-prefers-color-scheme</a>
+        </p>
+
+        <h2>API</h2>
+
+        <pre><code class="language-js">nightlife.on("init", function(){
+    console.log(
+        `nightlife is now initialized.`,
+        `It's ${nightlife.isNight ? 'night' : 'day'}.`,
+        `Today, sun rises at ${nightlife.sunrise.toLocaleTimeString()}
+            and sets at ${nightlife.sunset.toLocaleTimeString()}`
+    )
+});
+
+nightlife.on("sunrise", () => console.log(`A new day has risen.`))
+nightlife.on("sunset", () => console.log(`Night has fallen.`))</code></pre>
+    </main>
+
+    <aside>
+        <a href="https://github.com/sylvainpolletvillard/nightlife" title="View on Github" target="_blank">
+            <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
+                    fill="#1B1F23" transform="scale(64)" />
+            </svg>
+        </a>
+    </aside>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: dark) {
+
+    html,img, video {
+        filter: invert(1) hue-rotate(180deg);
+    }
+
+    body {
+        background-color: black;
+    }
+
+}

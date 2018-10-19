@@ -1,0 +1,24 @@
+{
+  "name": "nightlife",
+  "version": "1.0.0",
+  "description": "detect night time based on user location",
+  "homepage": "http://sylvainpolletvillard.github.io/nightlife/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sylvainpolletvillard/nightlife.git"
+  },
+  "main": "src/nightlife.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/*"
+  },
+  "author": "Sylvain Pollet-Villard",
+  "license": "MIT",
+  "dependencies": {
+    "solar-calc": "^1.1.0",
+    "css-prefers-color-scheme": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.10.3"
+  }
+}
