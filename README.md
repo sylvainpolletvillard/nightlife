@@ -1,5 +1,4 @@
 # nightlife
-# nightlife
 
 nightlife detects users location and calculates sunrise and sunset time at their location, to apply a different style at night time.
 
