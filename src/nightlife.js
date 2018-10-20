@@ -36,15 +36,13 @@ const nightlife = {
                     if (sunrise < Date.now()) sunrise.setDate(sunrise.getDate() + 1);
                     nightlife.timeout = setTimeout(() => {
                         log(`A new day has risen`)
-                        nightlife.listeners.sunrise.forEach(cb => cb())
-                        nightlife.toggleNightMode()
+                        nightlife.toggleNightMode().then(() => nightlife.listeners.sunrise.forEach(cb => cb()))
                     }, sunrise.getTime() - Date.now());
                 } else {
                     if (sunset < Date.now()) sunset.setDate(sunset.getDate() + 1);
                     nightlife.timeout = setTimeout(() => {
                         log(`Night has fallen`)
-                        nightlife.listeners.sunset.forEach(cb => cb())
-                        nightlife.toggleNightMode();
+                        nightlife.toggleNightMode().then(() => nightlife.listeners.sunset.forEach(cb => cb()))
                     }, sunset.getTime() - Date.now());
                 }
 
