@@ -8,7 +8,7 @@ If user location can not be retrieved, it is assumed that the night goes from 6p
 
 ```html
 <!-- inside your <head> -->
-<script defer src="unpkg.com/nightlife/dist/nightlife.js"></script>
+<script defer src="http://unpkg.com/nightlife/dist/nightlife.js"></script>
 ```
 
 ## Night mode CSS
@@ -16,18 +16,18 @@ If user location can not be retrieved, it is assumed that the night goes from 6p
 If you want a default basic night theme, you can use this one: it inverts the lightness of all colors except for images and videos.
 
 ```html
-<link rel="stylesheet" href="unpkg.com/nightlife/dist/nightlife.css" />
+<link rel="stylesheet" href="http://unpkg.com/nightlife/dist/nightlife.css" />
 ```
 
 If you want your own styles at night time, use this media query:
 
 ```css
 @media (prefers-color-scheme: dark) {
-    /* these styles will apply at night time
-       or if user explicitely asks for a dark color scheme */
-    body {
-        background-color: black;
-    }
+	/* these styles will apply at night time */
+	/* or if user explicitely asks for a dark color scheme */
+	body {
+		background-color: black;
+	}
 }
 ```
 
@@ -36,15 +36,26 @@ This media query is currently not supported on most browsers, so you will also h
 ## API
 
 ```js
-nightlife.on("init", function(){
-    console.log(
-        `nightlife is now initialized.`,
-        `It's ${nightlife.isNight ? 'night' : 'day'}.`,
-        `Today, sun rises at ${nightlife.sunrise.toLocaleTimeString()}
+nightlife.on("init", function() {
+	console.log(
+		`nightlife is now initialized.`,
+		`It's ${nightlife.isNight ? "night" : "day"}.`,
+		`Today, sun rises at ${nightlife.sunrise.toLocaleTimeString()}
             and sets at ${nightlife.sunset.toLocaleTimeString()}`
-    )
-});
+	)
+})
 
 nightlife.on("sunrise", () => console.log(`A new day has risen.`))
 nightlife.on("sunset", () => console.log(`Night has fallen.`))
+
+nightlife.toggleNightMode() // manually toggle on and off night mode
+nightlife.toggleNightMode(true) // force on night mode
+nightlife.toggleNightMode(false) // force off night mode
+
+nightlife.calcSunriseAndSunset().then(({ sunrise, sunset }) => {
+	console.log(
+		`Today, sun rises at ${nightlife.sunrise.toLocaleTimeString()}
+        and sets at ${nightlife.sunset.toLocaleTimeString()}`
+	)
+})
 ```
