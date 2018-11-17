@@ -9,36 +9,35 @@ const log = message => console.log(`[${NAME}] ${message}`)
 
 const nightlife = {
 	calcSunriseAndSunset() {
+		const today = new Date();
+		const tomorrow = new Date();
+		tomorrow.setDate(today.getDate() + 1);
+
 		return new Promise((resolve, reject) =>
 			navigator.geolocation.getCurrentPosition(resolve, reject)
 		)
 			.then(({ coords: { latitude, longitude } }) => {
-				return new SolarCalc(new Date(), latitude, longitude)
+				let { sunrise, sunset } = new SolarCalc(today, latitude, longitude);
+				let { sunrise: tomorrowSunrise } = new SolarCalc(tomorrow, latitude, longitude);
+
+				return { sunrise, sunset, tomorrowSunrise }
 			})
 			.catch(err => {
-				console.error(
-					`Can't detect night time based on location, fallback to hour-based detection`,
-					err
-				)
+				console.error(`Can't detect night time based on location, fallback to hour-based detection`, err)
 
-				let sunrise = new Date()
-				sunrise.setHours(6, 0, 0, 0)
+				let sunrise = new Date(today).setHours(6, 0, 0, 0)
+				let sunset = new Date(today).setHours(18, 0, 0, 0)
+				let tomorrowSunrise = new Date(tomorrow).setHours(6, 0, 0, 0)
 
-				let sunset = new Date()
-				sunset.setHours(18, 0, 0, 0)
-
-				if (sunrise < Date.now()) sunrise.setDate(sunrise.getDate() + 1)
-				if (sunset < Date.now()) sunset.setDate(sunset.getDate() + 1)
-
-				return { sunrise, sunset }
+				return { sunrise, sunset, tomorrowSunrise }
 			})
 	},
 
 	autoApplyNightMode(forcedMode) {
-		return nightlife.calcSunriseAndSunset().then(({ sunrise, sunset }) => {
+		return nightlife.calcSunriseAndSunset().then(({ sunrise, sunset, tomorrowSunrise }) => {
 			let isNight = Date.now() > sunset || Date.now() < sunrise
 			if (forcedMode !== undefined) isNight = forcedMode
-			Object.assign(nightlife, { isNight, sunrise, sunset })
+			Object.assign(nightlife, { isNight, sunrise, sunset, tomorrowSunrise })
 			return nightlife.toggleNightMode(isNight)
 		})
 	},
@@ -56,7 +55,7 @@ const nightlife = {
 				nightlife
 					.autoApplyNightMode(false)
 					.then(() => nightlife.listeners.sunrise.forEach(cb => cb()))
-			}, nightlife.sunrise.getTime() - Date.now())
+			}, nightlife.tomorrowSunrise.getTime() - Date.now())
 		} else {
 			nightlife.timeout = setTimeout(() => {
 				log(`Night has fallen`)

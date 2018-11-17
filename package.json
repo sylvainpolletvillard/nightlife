@@ -1,6 +1,6 @@
 {
 	"name": "nightlife",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "detect night time based on user location",
 	"homepage": "https://sylvainpolletvillard.github.io/nightlife/",
 	"repository": {
@@ -16,7 +16,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"solar-calc": "^1.1.0",
-		"css-prefers-color-scheme": "^3.0.0"
+		"css-prefers-color-scheme": "^3.1.1"
 	},
 	"devDependencies": {
 		"parcel-bundler": "^1.10.3"
