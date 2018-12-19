@@ -25,9 +25,12 @@ const nightlife = {
 			.catch(err => {
 				console.error(`Can't detect night time based on location, fallback to hour-based detection`, err)
 
-				let sunrise = new Date(today).setHours(6, 0, 0, 0)
-				let sunset = new Date(today).setHours(18, 0, 0, 0)
-				let tomorrowSunrise = new Date(tomorrow).setHours(6, 0, 0, 0)
+				let sunrise = new Date(today)
+				sunrise.setHours(6, 0, 0, 0)
+				let sunset = new Date(today)
+				sunset.setHours(18, 0, 0, 0)
+				let tomorrowSunrise = new Date(tomorrow)
+				tomorrowSunrise.setHours(6, 0, 0, 0)
 
 				return { sunrise, sunset, tomorrowSunrise }
 			})
