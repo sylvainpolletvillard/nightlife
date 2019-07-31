@@ -15,10 +15,10 @@
 	"author": "Sylvain Pollet-Villard",
 	"license": "MIT",
 	"dependencies": {
-		"css-prefers-color-scheme": "^3.1.1",
+		"css-prefers-color-scheme": "^4.0.0",
 		"solar-calc": "^1.1.0"
 	},
 	"devDependencies": {
-		"parcel-bundler": "^1.11.0"
+		"parcel-bundler": "^1.12.3"
 	}
 }
