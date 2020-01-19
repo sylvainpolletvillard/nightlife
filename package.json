@@ -19,6 +19,6 @@
 		"solar-calc": "^1.1.0"
 	},
 	"devDependencies": {
-		"parcel-bundler": "^1.12.3"
+		"parcel-bundler": "^1.12.4"
 	}
 }
